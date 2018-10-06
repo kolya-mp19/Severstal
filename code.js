@@ -4,6 +4,7 @@ let root = document.getElementById("root");
 //согдаем таблицу с id
 let table = document.createElement("table");
 table.id = "mainTable";
+table.className = "mainTable";
 root.appendChild(table);
 
 //создаем заголовок таблицы
@@ -38,12 +39,11 @@ for (let i=0; i<myDateFromTZ.length; i++) {
     if (myDateFromTZ[i].parentId == 0) {
         tbody.appendChild(trB);
     } else {
-        tBody.insertBefore(trB, tBody.children[myDateFromTZ[i].parentId]);
+        let j = myDateFromTZ[i].parentId - 1;
+        $( trB ).insertAfter( "#trB" + j );
         trB.style.display = "";
         trB.style.background = "lightgreen";
     }
-    
-    
     
     //заполняем таблицу данными
     for (let key in myDateFromTZ[i]) {
@@ -55,3 +55,4 @@ for (let i=0; i<myDateFromTZ.length; i++) {
 }
 
 
+        
