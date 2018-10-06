@@ -1,4 +1,3 @@
-"use strict";
 //наш блок div в котором таблица с данными
 let root = document.getElementById("root");
 
@@ -27,12 +26,26 @@ for (let key in myDateFromTZ[0]) {
 
 //создаем body таблицы
 let tbody = document.createElement("tbody");
+tbody.id = "tBody";
 table.appendChild(tbody);
 
 for (let i=0; i<myDateFromTZ.length; i++) {
     let trB = document.createElement("tr");
-    tbody.appendChild(trB);
+    trB.id = "trB" + i;
 
+
+    //сортировка по дочерним элементам
+    if (myDateFromTZ[i].parentId == 0) {
+        tbody.appendChild(trB);
+    } else {
+        tBody.insertBefore(trB, tBody.children[myDateFromTZ[i].parentId]);
+        trB.style.display = "";
+        trB.style.background = "lightgreen";
+    }
+    
+    
+    
+    //заполняем таблицу данными
     for (let key in myDateFromTZ[i]) {
         let tdB = document.createElement("td");
         trB.appendChild(tdB);
@@ -40,14 +53,5 @@ for (let i=0; i<myDateFromTZ.length; i++) {
     }
     
 }
-///////////
 
 
-
-
-// let a = "<tr>";
-// for (let key in myDateFromTZ[0]) {
-//     a += "<td>" + myDateFromTZ[0][key] + "</td";
-// };
-// a += "</tr>";
-// tbody.innerHTML = a;
