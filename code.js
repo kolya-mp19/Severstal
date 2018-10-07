@@ -41,18 +41,29 @@ for (let i=0; i<myDateFromTZ.length; i++) {
     } else {
         let j = myDateFromTZ[i].parentId - 1;
         $( trB ).insertAfter( "#trB" + j );
-        trB.style.display = "";
+        trB.style.display = "none";
         trB.style.background = "lightgreen";
     }
     
     //заполняем таблицу данными
     for (let key in myDateFromTZ[i]) {
         let tdB = document.createElement("td");
+        tdB.className = key;
         trB.appendChild(tdB);
         tdB.innerHTML = myDateFromTZ[i][key];
     }
     
 }
 
+// по двойному клику показываем дочерние элементы
+// двойной клик должен быть на поле id элемента
+$(".id").on("dblclick",function(event) {
+    let val = event.target.innerHTML;
 
-        
+    for (let i=0; i<myDateFromTZ.length; i++) {
+        if (tBody.rows[i].cells[1].innerHTML == val) {
+            tBody.rows[i].style.display = ""
+        }
+    }
+
+});
