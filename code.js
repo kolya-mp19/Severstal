@@ -62,7 +62,8 @@ $(".id").on("dblclick",function(event) {
 
     for (let i=0; i<myDateFromTZ.length; i++) {
         if (tBody.rows[i].cells[1].innerHTML == val) {
-            tBody.rows[i].style.display = ""
+            // tBody.rows[i].style.display = ""
+            $(tBody.rows[i]).show(1000);
         }
     }
 
