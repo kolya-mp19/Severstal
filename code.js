@@ -1,16 +1,16 @@
 //наш блок div в котором таблица с данными
 let root = document.getElementById("root");
 
-//согдаем таблицу с id
+//создаем таблицу с id
 let table = document.createElement("table");
 table.id = "mainTable";
 table.className = "mainTable";
 root.appendChild(table);
 
 //создаем заголовок таблицы
-let caption = document.createElement("caption")
+let caption = document.createElement("caption");
 caption.id = "headTable";
-caption.innerHTML = "<b>Таблица по данным из файла ТЗ</b>"
+caption.innerHTML = "<b>Таблица по данным из файла ТЗ</b>";
 table.appendChild(caption);
 
 //создаем head таблицы
@@ -34,10 +34,10 @@ for (let i=0; i<myDateFromTZ.length; i++) {
     let trB = document.createElement("tr");
     trB.id = "trB" + i;
 
-
     //сортировка по дочерним элементам
     if (myDateFromTZ[i].parentId == 0) {
         tbody.appendChild(trB);
+        trB.className = "visibility"
     } else {
         let j = myDateFromTZ[i].parentId - 1;
         $( trB ).insertAfter( "#trB" + j );
@@ -52,19 +52,49 @@ for (let i=0; i<myDateFromTZ.length; i++) {
         trB.appendChild(tdB);
         tdB.innerHTML = myDateFromTZ[i][key];
     }
-    
 }
 
-// по двойному клику показываем дочерние элементы
-// двойной клик должен быть на поле id элемента
-$(".id").on("dblclick",function(event) {
+// по одинарному клику показываем дочерние элементы
+// одинарный клик должен быть на поле id элемента
+$(".id").on("click",function(event) {
     let val = event.target.innerHTML;
-
     for (let i=0; i<myDateFromTZ.length; i++) {
         if (tBody.rows[i].cells[1].innerHTML == val) {
-            // tBody.rows[i].style.display = ""
-            $(tBody.rows[i]).show(1000);
+            $(tBody.rows[i]).toggleClass("visibility").fadeToggle(250);
         }
     }
-
 });
+
+
+let counter = 0;
+// по клику на название столбца isActive сработает фильтр по true-false
+$(nameColMain.rows[0].cells[2]).on("click", function(event) {
+    event.target.style.background = "lightgreen";
+    // четный клик выводит true - скрывает false
+    $(".visibility").show(5);
+    if (counter % 2 == 0){
+    for (let i=0; i<myDateFromTZ.length; i++) {
+        if (tBody.rows[i].className == "visibility" && tBody.rows[i].cells[2].innerHTML == "false") {
+            $(tBody.rows[i]).hide();
+        }
+    }
+    counter++; 
+} else {
+    // нечетный клик выводит$(".visibility").show(5); false - скрывает true
+    
+    for (let i=0; i<myDateFromTZ.length; i++) {
+        if (tBody.rows[i].className == "visibility" && tBody.rows[i].cells[2].innerHTML == "true") {
+            $(tBody.rows[i]).hide();
+        }
+    }
+    counter++;
+}
+})
+
+// отменяем фильтрацию по isActive
+$(nameColMain.rows[0].cells[2]).on("dblclick", function(event) {
+    event.target.style.background = ""
+    $(".visibility").show()
+
+})
+
