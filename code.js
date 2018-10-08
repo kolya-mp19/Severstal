@@ -65,29 +65,28 @@ $(".id").on("click",function(event) {
     }
 });
 
-
-let counter = 0;
+let counterIsActive = 0;
 // по клику на название столбца isActive сработает фильтр по true-false
 $(nameColMain.rows[0].cells[2]).on("click", function(event) {
     event.target.style.background = "lightgreen";
     // четный клик выводит true - скрывает false
     $(".visibility").show(5);
-    if (counter % 2 == 0){
+    if (counterIsActive % 2 == 0){
     for (let i=0; i<myDateFromTZ.length; i++) {
         if (tBody.rows[i].className == "visibility" && tBody.rows[i].cells[2].innerHTML == "false") {
             $(tBody.rows[i]).hide();
         }
     }
-    counter++; 
+    counterIsActive++; 
 } else {
-    // нечетный клик выводит$(".visibility").show(5); false - скрывает true
+    // нечетный клик выводит false - скрывает true
     
     for (let i=0; i<myDateFromTZ.length; i++) {
         if (tBody.rows[i].className == "visibility" && tBody.rows[i].cells[2].innerHTML == "true") {
             $(tBody.rows[i]).hide();
         }
     }
-    counter++;
+    counterIsActive++;
 }
 })
 
